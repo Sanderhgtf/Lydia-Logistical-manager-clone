@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Picking Form</title>
+</head>
+<body>
+
+    <h2>Add Order</h2>
+
+    <form action="insert.php" method="post">
+        <label for="ticket">Ticket:</label>
+        <input type="text" name="ticket" required><br>
+
+        <label for="product_id">Product ID:</label>
+        <input type="text" name="product_id" required><br>
+
+        <label for="amount">Amount:</label>
+        <input type="text" name="amount" required><br>
+
+        <input type="submit" value="Add Order">
+    </form>
+
+</body>
+</html>

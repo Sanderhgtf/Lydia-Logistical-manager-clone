@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Viewer</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js" defer></script>
+</head>
+<body>
+
+  <!-- m-0 p-0 bg-center bg-cover bg-no-repeat -->
+
+  <form action="view_tickets.php" method="post">
+    <div class="bg-gray-100 min-h-screen flex items-center justify-center bg-center bg-cover bg-no-repeat" style="background-image: url('../img/university_blur.png');">
+        <div class="max-w-sm rounded-lg shadow-lg bg-white p-6 space-y-6 border border-gray-200 dark:border-gray-700">
+          <div class="space-y-2 text-center">
+            <h1 class="text-3xl font-bold mb-5">Ticket Viewer</h1>
+          </div>
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="store_Id"
+                name="store_Id"
+                placeholder="Enter Store ID"
+                required
+                type="number"
+              />
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+              <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 bg-black text-white">
+                <div class="flex items-center justify-center">
+                  View Tickets
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+</body>
+</html>
