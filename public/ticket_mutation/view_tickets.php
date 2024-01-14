@@ -6,14 +6,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $store_Id = intval($_POST['store_Id']);
 
     // Retrieve data from the database based on the store_Id
-    $select_query = $conn->prepare("SELECT product_id, location_id, amount FROM tickets WHERE store_Id = ?");
+    $select_query = $conn->prepare("SELECT product_id, amount FROM tickets WHERE store_Id = ?");
     
     if ($select_query) {
         $select_query->bind_param("i", $store_Id);
 
         if ($select_query->execute()) {
             // Bind the result variables
-            $select_query->bind_result($product_id, $location_id, $amount);
+            $select_query->bind_result($product_id, $amount);
 
             // Display results in a two-column area with a scrollbar
             echo '<!DOCTYPE html>
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <strong>Store ID : '.$store_Id.'</strong>' ;
             while ($select_query->fetch()) {
                 echo '<div class="border border-gray-300 p-2">' .
-                    '<p><strong>Product / Location / Amount : </strong>'.$product_id.' '.$location_id.' '.$amount.'</p>' .
+                    '<p><strong>Product / Amount : </strong>'.$product_id.' '.$amount.'</p>' .
                     '</div>';
             }
             echo '</div>

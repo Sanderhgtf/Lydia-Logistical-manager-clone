@@ -10,12 +10,11 @@ if ($conn->connect_error) {
 // Form data
 $store_Id = $_POST['store_Id'];
 $product_id = $_POST['product_id'];
-$location_id = $_POST['location_id'];
 $amount = $_POST['amount'];
 
 
 // Insert data into the database
-$insert_query = "INSERT INTO tickets (store_Id, product_id, location_id, amount) VALUES ('$store_Id','$product_id', '$location_id',  '$amount')";
+$insert_query = "INSERT INTO tickets (store_Id, product_id, amount) VALUES ('$store_Id','$product_id',  '$amount')";
         
 if ($conn->query($insert_query) === TRUE) {
     echo "successful!";
