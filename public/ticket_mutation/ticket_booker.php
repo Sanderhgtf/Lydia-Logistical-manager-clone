@@ -17,22 +17,26 @@ for ($i = 0; $i < count($product_ids); $i++) {
     $product_id = $product_ids[$i];
     $amount = $amounts[$i];
 
-    // Insert data into the database
-    $insert_query = "INSERT INTO tickets (store_Id, product_id, amount) VALUES ('$store_Id', '$product_id', '$amount')";
+    // Check if the input fields are empty or have a value of 0
+    if ($product_id != '' && $amount != '' && $amount != 0) {
+        // Insert data into the database
+        $insert_query = "INSERT INTO tickets (store_Id, product_id, amount) VALUES ('$store_Id', '$product_id', '$amount')";
 
-    if ($conn->query($insert_query) !== TRUE) {
-        echo "Error: " . $insert_query . "<br>" . $conn->error;
-        exit(); // Terminate if an error occurs
+        if ($conn->query($insert_query) !== TRUE) {
+            echo "Error: " . $insert_query . "<br>" . $conn->error;
+            exit(); // Terminate if an error occurs
+        }
     }
 }
 
 echo "Successful!";
 // Redirect to display_ticket_booker.html
-header("Location: display_ticket_booker.html");
+header("Location: display_ticket_booker.php");
 exit();
 
 $conn->close();
 ?>
+
 
 
 <!-- 
