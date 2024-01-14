@@ -95,18 +95,20 @@
                     </div>
                   </div>
                 
-                    <div class="flex flex-row grid-cols-3 space-x-2">
-                        <div class="flex-1">
-                            <input
-                                class="h-10 w-full rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                id="product_id" name="product_id" placeholder="Prod. ID" required type="number" />
-                        </div>
-                        <div class="flex-1">
-                            <input
-                                class="flex h-10 w-full rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                id="amount" name="amount" placeholder="amount" required type="number" />
-                        </div>
-                    </div>
+                  <div id="displayContainer">
+                    <div id="inputRow" class="flex flex-row grid-cols-3 space-x-2">
+                      <div class="flex-1">
+                          <input
+                              class="h-10 w-full rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                              id="product_id" name="product_id" placeholder="Prod. ID" required type="number" />
+                      </div>
+                      <div class="flex-1">
+                          <input
+                              class="flex h-10 w-full rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                              id="amount" name="amount" placeholder="amount" required type="number" />
+                      </div>
+                  </div>
+                  </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button type="submit"
@@ -123,9 +125,9 @@
 
     <script>
       function addRow() {
-          var container = document.querySelector('.flex.flex-row.grid-cols-3.space-x-2').parentElement;
-          var existingRow = document.querySelector('.flex.flex-row.grid-cols-3.space-x-2');
-          var newRow = existingRow.cloneNode(true);
+          var container = document.getElementById('displayContainer');
+          var inputRow = document.getElementById('inputRow');
+          var newRow = inputRow.cloneNode(true);
           container.appendChild(newRow);
       }
   </script>
