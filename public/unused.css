@@ -1,0 +1,64 @@
+.px-2 {
+    padding-left: 0.5rem/* 8px */;
+    padding-right: 0.5rem/* 8px */;
+}
+
+.py-1-custom {
+    padding-bottom: 0.15rem/* 4px */;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-xl {
+    font-size: 1.25rem/* 20px */;
+    line-height: 1.75rem/* 28px */;
+}
+
+.bg-emerald-400 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(52 211 153 / var(--tw-bg-opacity));
+}
+
+.border-neutral-300 {
+    --tw-border-opacity: 1;
+    border-color: rgb(212 212 212 / var(--tw-border-opacity));
+}
+
+.mt-1 {
+    margin-top: 0.2rem/* 4px */;
+}
+
+.rounded-sm {
+    border-radius: 0.225rem/* 2px */;
+}
+
+.ml-4 {
+    margin-left: 1rem/* 16px */;
+}
+
+.hover\:bg-emerald-700:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(4 120 87 / var(--tw-bg-opacity));
+}
+
+.bg-sky-800 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(7 89 133 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-sky-950:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(8 47 73 / var(--tw-bg-opacity));
+}
+
+.my-1 {
+    margin-top: 0.25rem/* 4px */;
+    margin-bottom: 0.25rem/* 4px */;
+}
+
+#displayContainer { /* scrollbar container */
+    max-height: 400px;
+    overflow-y: scroll;
+}

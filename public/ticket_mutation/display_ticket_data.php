@@ -122,7 +122,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticker booker</title>
     <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../styles_custom.css">
+    <link rel="stylesheet" href="../styles_ticket_general.css">
     <script src="checkbox.js" defer></script>
     <style></style>
 </head>

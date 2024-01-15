@@ -6,76 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticker booker</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../script.js" defer></script>
+    <link rel="stylesheet" href="../styles_ticket_general.css">
+    <script src="arrow_navigation.js" defer></script>
+    <script>
+    let counter = 9;
+
+    function addRow() {
+        var container = document.getElementById('displayContainer');
+        var inputRow = document.getElementById('inputRow0');
+        var newRow = inputRow.cloneNode(true);
+        newRow.id = 'inputRow' + counter;
+
+        // Update input IDs using indexing
+        newRow.querySelector('#product_id0').id = 'product_id' + counter;
+        newRow.querySelector('#amount0').id = 'amount' + counter;
+
+        container.appendChild(newRow);
+        counter++;
+
+        // If the number of rows exceeds x it adds scrollbar to container
+        if (counter > 9) {
+            container.style.overflowY = 'scroll';
+        }
+    }
+    </script>
     <style>
-        .px-2 {
-            padding-left: 0.5rem/* 8px */;
-            padding-right: 0.5rem/* 8px */;
-        }
-
-        .py-1-custom {
-            padding-bottom: 0.15rem/* 4px */;
-        }
-
-        .font-bold {
-            font-weight: 700;
-        }
-
-        .text-xl {
-            font-size: 1.25rem/* 20px */;
-            line-height: 1.75rem/* 28px */;
-        }
-
-        .bg-emerald-400 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(52 211 153 / var(--tw-bg-opacity));
-        }
-
-        .border-neutral-300 {
-            --tw-border-opacity: 1;
-            border-color: rgb(212 212 212 / var(--tw-border-opacity));
-        }
-
-        .mt-1 {
-            margin-top: 0.2rem/* 4px */;
-        }
-
-        .rounded-sm {
-            border-radius: 0.225rem/* 2px */;
-        }
-
-        .ml-4 {
-            margin-left: 1rem/* 16px */;
-        }
-
-        .hover\:bg-emerald-700:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(4 120 87 / var(--tw-bg-opacity));
-        }
-
-        .bg-sky-800 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(7 89 133 / var(--tw-bg-opacity));
-        }
-
-        .hover\:bg-sky-950:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(8 47 73 / var(--tw-bg-opacity));
-        }
-
-        .my-1 {
-            margin-top: 0.25rem/* 4px */;
-            margin-bottom: 0.25rem/* 4px */;
-        }
-
         #displayContainer { /* scrollbar container */
             max-height: 400px;
             overflow-y: scroll;
         }
-
-
-
-
     </style>
 </head>
 
@@ -137,79 +96,6 @@
             </div>
         </div>
     </form>
-
-    <script>
-    let counter = 9;
-
-    function addRow() {
-    var container = document.getElementById('displayContainer');
-    var inputRow = document.getElementById('inputRow0');
-    var newRow = inputRow.cloneNode(true);
-    newRow.id = 'inputRow' + counter;
-
-    // Update input IDs using indexing
-    newRow.querySelector('#product_id0').id = 'product_id' + counter;
-    newRow.querySelector('#amount0').id = 'amount' + counter;
-
-    container.appendChild(newRow);
-    counter++;
-
-    // If the number of rows exceeds x it adds scrollbar to container
-    if (counter > 9) {
-        container.style.overflowY = 'scroll';
-    }
-}
-
-    </script>
-    <script>
-        function handleArrowKeys(event, currentInput) {
-        var inputRow = currentInput.parentElement.parentElement;
-
-        // Handle arrow key events
-        switch (event.key) {
-            case 'ArrowUp':
-                // Focus on the input in the row above
-                if (inputRow.previousElementSibling) {
-                    inputRow.previousElementSibling.querySelector('input').focus();
-                }
-                break;
-            case 'ArrowDown':
-                // Focus on the input in the row below
-                if (inputRow.nextElementSibling) {
-                    inputRow.nextElementSibling.querySelector('input').focus();
-                }
-                break;
-            case 'ArrowLeft':
-                // Focus on the input to the left
-                if (currentInput.parentElement.previousElementSibling) {
-                    currentInput.parentElement.previousElementSibling.querySelector('input').focus();
-                }
-                break;
-            case 'ArrowRight':
-                // Focus on the input to the right
-                if (currentInput.parentElement.nextElementSibling) {
-                    currentInput.parentElement.nextElementSibling.querySelector('input').focus();
-                }
-                break;
-        }
-
-        // Prevent the default behavior only for arrow keys
-        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-            event.preventDefault();
-        }
-    }
-
-        // Attach event listeners to handle arrow key events
-        document.addEventListener('keydown', function (event) {
-            var activeElement = document.activeElement;
-
-            // Check if the active element is an input field
-            if (activeElement.tagName === 'INPUT') {
-                handleArrowKeys(event, activeElement);
-            }
-        });
-    </script>
-
 </body>
 
 </html>
