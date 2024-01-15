@@ -3,10 +3,9 @@ include '../db_connection.php'; // Include the database connection file
 
 // Initialize variables
 $store_Id = null;
-$door_id = null;
+$door_ids = array();
 $product_ids = array();
 $amounts = array();
-$door_ids = array();
 $location_ids = array();
 
 // Check if the form is submitted
@@ -61,7 +60,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error preparing query for tickets: " . $conn->error;
     }
 
-    // Now, retrieve data from the 'products' table based on the product_id
+    // Now, update the 'tickets' table based on the checkbox status
+    if (isset($_POST['checkbox'])) {
+        $update_ticket_query = $conn->prepare("UPDATE tickets SET isCompleted = 1 WHERE store_Id = ? AND product_id = ?");
+        if ($update_ticket_query) {
+            $update_ticket_query->bind_param("ii", $store_Id, $product_id);
+
+            foreach ($_POST['checkbox'] as $checkboxIndex) {
+                $product_id = $product_ids[$checkboxIndex];
+                $update_ticket_query->execute();
+            }
+
+            // Close the update query
+            $update_ticket_query->close();
+        } else {
+            echo "Error preparing update query for tickets: " . $conn->error;
+        }
+    }
+
+    // Retrieve data from the 'products' table based on the product_id
     $select_products_query = $conn->prepare("SELECT location_id FROM products WHERE product_id = ?");
     if ($select_products_query) {
         // Prepare the statement outside the loop
@@ -96,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the database connection
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,187 +122,9 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticker booker</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../script.js" defer></script>
-    <style>
-        .px-2 {
-            padding-left: 0.5rem/* 8px */;
-            padding-right: 0.5rem/* 8px */;
-        }
-
-        .py-1-custom {
-            padding-bottom: 0.15rem/* 4px */;
-        }
-
-        .font-bold {
-            font-weight: 700;
-        }
-
-        .text-xl {
-            font-size: 1.25rem/* 20px */;
-            line-height: 1.75rem/* 28px */;
-        }
-
-        .bg-emerald-400 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(52 211 153 / var(--tw-bg-opacity));
-        }
-
-        .border-neutral-300 {
-            --tw-border-opacity: 1;
-            border-color: rgb(212 212 212 / var(--tw-border-opacity));
-        }
-
-        .mt-1 {
-            margin-top: 0.2rem/* 4px */;
-        }
-
-        .rounded-sm {
-            border-radius: 0.225rem/* 2px */;
-        }
-
-        .ml-4 {
-            margin-left: 1rem/* 16px */;
-        }
-
-        .hover\:bg-emerald-700:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(4 120 87 / var(--tw-bg-opacity));
-        }
-
-        .bg-sky-800 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(7 89 133 / var(--tw-bg-opacity));
-        }
-
-        .hover\:bg-sky-950:hover {
-            --tw-bg-opacity: 1;
-            background-color: rgb(8 47 73 / var(--tw-bg-opacity));
-        }
-
-        .my-1 {
-            margin-top: 0.25rem/* 4px */;
-            margin-bottom: 0.25rem/* 4px */;
-        }
-
-        #outputContainer { /* scrollbar container */
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .text-2xl {
-            font-size: 1.5rem/* 24px */;
-            line-height: 2rem/* 32px */;
-        }
-
-        .underline {
-            text-decoration-line: underline;
-        }
-
-        .font-semibold {
-            font-weight: 600;
-        }
-
-        .border-neutral-400 {
-            --tw-border-opacity: 1;
-            border-color: rgb(163 163 163 / var(--tw-border-opacity));
-        }
-
-        .col-span-1 {
-            grid-column: span 1 / span 1;
-        }
-
-        .bg-red-300 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(252 165 165 / var(--tw-bg-opacity));
-        }
-
-        .ml-1 {
-            margin-left: 0.25rem/* 4px */;
-        }
-
-        .max-w-custom {
-            max-width: 25%;
-        }
-
-        .p-2 {
-            padding: 0.5rem/* 8px */;
-        }
-
-        .h-full {
-            height: 100%;
-        }
-
-        .custom-checkbox {
-            width: 80%;
-            height: 80%;
-            margin: 0;
-        }
-
-        /* .custom-checkbox:checked {
-            put like a swisting animation like the twitter like animation
-        } */
-
-        .w-1\/6 {
-            width: 20%;
-        }
-
-        .mx-6 {
-            margin-left: 1.5rem/* 24px */;
-            margin-right: 1.5rem/* 24px */;
-        }
-
-        .ml-12 {
-            margin-left: 25%;
-            margin-top: 1%;
-        }
-
-
-        .center-custom {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .flex-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .border-neutral-300 {
-            --tw-border-opacity: 1;
-            border-color: rgb(212 212 212 / var(--tw-border-opacity));
-        }
-
-        .shadow-sm {
-            --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-        }
-
-        @media (max-width: 1024px) {
-            .lg\:w-1\/2 {
-                width: 50%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .md\:w-1\/2 {
-                width: 50%;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .sm\:w-full {
-                width: 100%;
-            }
-        }
-
-        .min-w-25-custom {
-            min-width: 30%;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="../styles_custom.css">
+    <script src="checkbox.js" defer></script>
+    <style></style>
 </head>
 
 <body>
@@ -343,32 +183,6 @@ $conn->close();
                 </div>
             </div>
         </div>
-        <script>
-            function validateCheckboxes() {
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                var allChecked = true;
-
-                for (var i = 0; i < checkboxes.length; i++) {
-                    if (!checkboxes[i].checked) {
-                        allChecked = false;
-                        break;
-                    }
-                }
-
-                if (allChecked) {
-                    // Redirect to "complete_ticket.html"
-                    window.location.href = 'complete_ticket.html';
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-                checkboxes.forEach(function (checkbox) {
-                    checkbox.addEventListener('change', validateCheckboxes);
-                });
-            });
-        </script>
     </form>
 </body>
 
