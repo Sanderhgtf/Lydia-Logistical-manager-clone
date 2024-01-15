@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN - Registration teacher</title>
+    <title>Ticker booker</title>
     <link rel="stylesheet" href="../styles.css">
     <script src="../script.js" defer></script>
     <style>
@@ -160,8 +160,8 @@
     }
 }
 
-</script>
-<script>
+    </script>
+    <script>
         function handleArrowKeys(event, currentInput) {
         var inputRow = currentInput.parentElement.parentElement;
 
@@ -199,16 +199,16 @@
         }
     }
 
-    // Attach event listeners to handle arrow key events
-    document.addEventListener('keydown', function (event) {
-        var activeElement = document.activeElement;
+        // Attach event listeners to handle arrow key events
+        document.addEventListener('keydown', function (event) {
+            var activeElement = document.activeElement;
 
-        // Check if the active element is an input field
-        if (activeElement.tagName === 'INPUT') {
-            handleArrowKeys(event, activeElement);
-        }
-    });
-</script>
+            // Check if the active element is an input field
+            if (activeElement.tagName === 'INPUT') {
+                handleArrowKeys(event, activeElement);
+            }
+        });
+    </script>
 
 </body>
 
